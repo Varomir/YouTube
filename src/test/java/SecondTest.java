@@ -1,4 +1,4 @@
-import core.helper.CompareWaveFiles;
+import core.helper.CompareWAV;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
@@ -6,10 +6,11 @@ import org.testng.annotations.Test;
 import page.objects.HomePage;
 import page.objects.ResultsContainer;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SecondTest extends TestRunner {
 
@@ -25,8 +26,17 @@ public class SecondTest extends TestRunner {
     @AfterMethod(alwaysRun = true)
     public void webDriverTearDown() {
         super.webDriverTearDown();
-        List<String> res = listWavFiles.stream().map(file -> CompareWaveFiles.getSimilarity(file)).collect(Collectors.toList());
-        saveRes2CSV(res);
+        List<String> results = new ArrayList<>();
+        for (String clipid: listWavFiles) {
+            try {
+                results.add(CompareWAV.getSimilarity(clipid, listWavFiles));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (UnsupportedAudioFileException e) {
+                e.printStackTrace();
+            }
+        }
+        saveRes2CSV(results);
     }
 
     @Test

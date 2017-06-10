@@ -29,7 +29,10 @@ public class ResultsContainer {
     }
 
     public List<String> getResList(boolean enableAdBlock) {
-        List<String> res = utils.getElements(LIST_RES).stream().limit(10).map(el -> el.getAttribute("href")).collect(Collectors.toList());
+        List<String> res = utils.getElements(LIST_RES).stream().
+                limit(10).
+                map(el -> el.getAttribute("href")).
+                collect(Collectors.toList());
         String abblock;
         if (enableAdBlock) {
             abblock = "_adblock-on";
@@ -40,6 +43,8 @@ public class ResultsContainer {
             driver.get(a);
             JavaSoundRecorder.grepSound(a.split("=")[1] + abblock);
         });
-        return res.stream().map(a -> a.split("=")[1]).collect(Collectors.toList());
+        return res.stream().
+                map(a -> a.split("=")[1]).
+                collect(Collectors.toList());
     }
 }

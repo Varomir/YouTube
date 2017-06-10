@@ -6,7 +6,7 @@
 
     <groupId>YouTube</groupId>
     <artifactId>YouTubeAdsTesting</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,7 +16,6 @@
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -48,11 +47,9 @@
             <version>1.7.12</version>
         </dependency>
         <dependency>
-            <groupId>com</groupId>
-            <artifactId>musicg</artifactId>
-            <version>1.4.2.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/musicg-1.4.2.0.jar</systemPath>
+            <groupId>com.bitsinharmony</groupId>
+            <artifactId>recognito</artifactId>
+            <version>0.1.0</version>
         </dependency>
     </dependencies>
 
@@ -76,11 +73,30 @@
                     <parallel>methods</parallel>
                     <threadCount>1</threadCount>
                     <useUnlimitedThreads>true</useUnlimitedThreads>
-                    <testFailureIgnore>false</testFailureIgnore>
-                    <argLine>
-                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
-                    </argLine>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+                <executions>
+                    <execution>
+                        <id>install-external</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>${project.basedir}/src/main/resources/recognito-0.1.0.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>com.bitsinharmony</groupId>
+                            <artifactId>recognito</artifactId>
+                            <version>0.1.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

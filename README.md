@@ -8,9 +8,12 @@ For run test:
 
  All 'wave' files stored in ./target/ folder
 
- and look result here: ./target/result.csv
+ See result here: ./target/result.csv
 
  Log file: ./trget/testrun.log
+
+For compare audion files used:
+https://github.com/amaurycrickx/recognito
 
 Note: in case of fails, try to change  'MixerInfo' line out
 JavaSoundRecorder: line 33
